@@ -14,6 +14,7 @@ public:
 
 private:
   IdType id_;
+  int offset_;
 };
 
 } // namespace NGAS
