@@ -51,3 +51,19 @@ file(GLOB data-src-files
 add_library(data-static STATIC ${data-src-files})
 target_link_libraries(data-static gflags ${glog_LIBRARY} hdfs3)
 set_property(TARGET data-static PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
+
+# Engine files
+file(GLOB engine-src-files
+  engine/execute.cc
+)
+
+# engine-static
+add_library(engine-static STATIC ${engine-src-files})
+target_link_libraries(engine-static data-static gflags ${glog_LIBRARY} )
+set_property(TARGET engine-static PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
+
+# Applications
+# PageRank
+add_executable(PR examples/pagerank.cc)
+target_link_libraries(PR engine-static ${CMAKE_DL_LIBS})
+set_property(TARGET PR PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
