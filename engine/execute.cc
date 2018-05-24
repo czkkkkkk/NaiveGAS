@@ -9,4 +9,4 @@ bool IsActive() {
   return true;
 }
 
-}  // namespace NGAS
+} // namespace NGAS
