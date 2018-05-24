@@ -4,11 +4,11 @@
 
 namepace NGAS {
 
-class edge {
+class Edge {
 public:
 
 private:
-  IdType src, dst;
+  IdType src_, dst_;
 
 };
 
