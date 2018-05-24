@@ -6,15 +6,15 @@ namespace NGAS {
 
 bool IsActive();
 
-template <typename VertexT>
-void RunJob(){
+template <typename VertexT> void RunJob() {
   std::vector<VertexT> objlist;
   // TODO load data
   // Sync
 
-  while(IsActive()) {
+  while (IsActive()) {
     // Scatter
-    for(auto &v: objlist) v.Scatter();
+    for (auto &v : objlist)
+      v.Scatter();
     // Gather
 
     // Wait for msg
@@ -26,4 +26,4 @@ void RunJob(){
   // Output
 }
 
-}  // namespace NGAS
+} // namespace NGAS

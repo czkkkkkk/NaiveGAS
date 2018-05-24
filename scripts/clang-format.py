@@ -8,6 +8,9 @@ import sys
 
 default_dirs = [
     'data',
+    'engine',
+    'examples',
+
 ]
 ignored_dirs = [
 ]
