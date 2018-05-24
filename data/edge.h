@@ -2,14 +2,12 @@
 
 #include <data/macros.h>
 
-namepace NGAS {
+namespace NGAS {
 
 class Edge {
 public:
-
 private:
   IdType src_, dst_;
-
 };
 
-}//namespace NGAS
+} // namespace NGAS
