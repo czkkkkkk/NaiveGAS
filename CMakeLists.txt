@@ -62,6 +62,10 @@ add_library(engine-static STATIC ${engine-src-files})
 target_link_libraries(engine-static data-static gflags ${glog_LIBRARY} )
 set_property(TARGET engine-static PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
 
+# Test
+include(CTest)
+add_subdirectory(test)
+
 # Applications
 # PageRank
 add_executable(PR examples/pagerank.cc)
