@@ -1,4 +1,3 @@
-#include "engine/execute.h"
 #include "data/vertex.h"
 
 #include <thread>
@@ -6,9 +5,7 @@
 
 namespace NGAS {
 
-bool IsActive() {
-  // TODO
-  return true;
-}
+template <typename VertexT, typename MsgT>
+void MultiThreadScatter(const std::vector<VertexT> &);
 
 } // namespace NGAS
