@@ -7,8 +7,9 @@
 
 namespace NGAS {
 
-template <typename VertexT, typename MsgT>
+template <typename VertexT>
 void MultiThreadScatter(const std::vector<VertexT> &vertexs) {
+  using MsgT = typename VertexT::MsgT;
 
   std::vector<std::shared_ptr<std::thread>> threads;
   const size_t threadNum = 50;
