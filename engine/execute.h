@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include "engine/scatter.h"
+
 namespace NGAS {
 
 bool IsActive();
@@ -13,8 +15,7 @@ template <typename VertexT> void RunJob() {
 
   while (IsActive()) {
     // Scatter
-    for (auto &v : objlist)
-      v.Scatter();
+    MultiThreadScatter(objlist);
     // Gather
 
     // Wait for msg

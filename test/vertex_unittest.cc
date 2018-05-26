@@ -15,11 +15,13 @@ class TestVertex : public testing::Test {
   void TearDown() {}
 };
 
-class TVertex : public Vertex<double> {
+class TVertex : public Vertex<double, Edge> {
  public:
-  void Apply(const double& msg) {
+  using EdgeT = Edge;
+
+  void Apply(const double& msg) override {
   }
-  std::vector<std::pair<IdType, double>> Scatter() {
+  std::vector<std::pair<IdType, double>> Scatter(const EdgeT& edge) const override {
     return {};
   }
 };

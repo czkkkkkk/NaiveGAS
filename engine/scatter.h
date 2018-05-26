@@ -12,23 +12,25 @@ void MultiThreadScatter(const std::vector<VertexT> &vertexs) {
   using MsgT = typename VertexT::MsgT;
 
   std::vector<std::shared_ptr<std::thread>> threads;
-  const size_t threadNum = 50;
-  threads.resize(threadNum);
-  size_t oneThreadVertex = vertexs.size() / threadNum;
-  size_t numPlusone = vertexs.size() % threadNum;
+  const size_t thread_num = 50;
+  threads.resize(thread_num);
+  size_t one_thread_vertex = vertexs.size() / thread_num;
+  size_t num_plus_one = vertexs.size() % thread_num;
 
   size_t left = 0, right = 0;
 
-  for (size_t i = 0; i < threadNum; i++) {
+  for (size_t i = 0; i < thread_num; i++) {
     threads[i] = std::make_shared<std::thread>([&]() {
-      if (i < numPlusone)
-        right = left + oneThreadVertex + 1;
+      if (i < num_plus_one)
+        right = left + one_thread_vertex + 1;
       else
-        right = left + oneThreadVertex;
-      std::vector<std::pair<IdType, MsgT>> msgVector;
+        right = left + one_thread_vertex;
+      std::vector<std::pair<IdType, MsgT>> msgs;
       for (size_t j = left; j < right; j++) {
-        std::vector<std::pair<IdType, MsgT>> v = vertexs[j].Scatter();
-        msgVector.insert(msgVector.end(), v.begin(), v.end());
+        for (const auto &edge : vertexs.at(j).GetEdge()) {
+          auto msg = vertexs.at(j).Scatter(edge);
+          msgs.insert(msgs.end(), msg.begin(), msg.end());
+        }
       }
       left = right;
     });

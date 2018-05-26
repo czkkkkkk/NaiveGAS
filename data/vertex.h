@@ -2,19 +2,24 @@
 
 #include <vector>
 
-#include <data/macros.h>
+#include "data/edge.h"
+#include "data/macros.h"
 
 namespace NGAS {
 
-template <typename MsgT> class Vertex {
+template <typename MsgT, typename EdgeT> class Vertex {
 public:
   virtual void Combine(MsgT &lhs, const MsgT &rhs) { lhs += rhs; }
   virtual void Apply(const MsgT &msg) = 0;
-  virtual std::vector<std::pair<IdType, MsgT>> Scatter() = 0;
+  virtual std::vector<std::pair<IdType, MsgT>>
+  Scatter(const EdgeT &edge) const = 0;
+
+  const std::vector<EdgeT> &GetEdge() const { return adj_; }
 
 private:
   IdType id_;
   int offset_;
+  std::vector<EdgeT> adj_;
 };
 
 } // namespace NGAS
