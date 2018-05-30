@@ -1,6 +1,7 @@
 #pragma once
 
 #include "data/vertex.h"
+#include "glog/logging.h"
 
 #include <algorithm>
 #include <chrono>
@@ -12,7 +13,7 @@
 namespace NGAS {
 
 template <typename VertexT>
-void MultiThreadScatter(const std::vector<VertexT> &vertexs) {
+auto MultiThreadScatter(const std::vector<VertexT> &vertexs) {
   using MsgT = typename VertexT::MsgT;
 
   std::vector<std::shared_ptr<std::thread>> threads;
@@ -21,8 +22,10 @@ void MultiThreadScatter(const std::vector<VertexT> &vertexs) {
   size_t one_thread_vertex = vertexs.size() / thread_num;
   size_t num_plus_one = vertexs.size() % thread_num;
 
+  std::vector<std::vector<std::pair<IdType, MsgT>>> msgs(thread_num);
+
   for (size_t i = 0; i < thread_num; i++) {
-    threads[i] = std::make_shared<std::thread>([&]() {
+    threads[i] = std::make_shared<std::thread>([=, &msgs, &vertexs]() {
       size_t left, right;
       if (i < num_plus_one) {
         left = i * (one_thread_vertex + 1);
@@ -33,11 +36,10 @@ void MultiThreadScatter(const std::vector<VertexT> &vertexs) {
         right = left + one_thread_vertex;
       }
 
-      std::vector<std::pair<IdType, MsgT>> msgs;
       for (size_t j = left; j < right; j++) {
         for (const auto &edge : vertexs.at(j).GetEdge()) {
           auto msg = vertexs.at(j).Scatter(edge);
-          msgs.insert(msgs.end(), msg.begin(), msg.end());
+          msgs.at(i).insert(msgs.at(i).end(), msg.begin(), msg.end());
         }
       }
       left = right;
@@ -48,6 +50,7 @@ void MultiThreadScatter(const std::vector<VertexT> &vertexs) {
   for (auto &thread : threads) {
     thread->join();
   }
+  return msgs;
 }
 
 } // namespace NGAS
