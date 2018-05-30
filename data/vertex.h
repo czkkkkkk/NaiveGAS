@@ -9,6 +9,10 @@ namespace NGAS {
 
 template <typename MsgT, typename EdgeT> class Vertex {
 public:
+  Vertex(IdType id) : id_(id) {}
+
+  virtual void AddEdge(const EdgeT &edge) { adj_.push_back(edge); }
+
   virtual void Combine(MsgT &lhs, const MsgT &rhs) { lhs += rhs; }
   virtual void Apply(const MsgT &msg) = 0;
   virtual std::vector<std::pair<IdType, MsgT>>

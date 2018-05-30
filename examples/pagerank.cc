@@ -4,12 +4,17 @@
 
 using namespace NGAS;
 
-class PREdge : public Edge {};
+class PREdge : public Edge {
+public:
+  PREdge(IdType src, IdType dst) : Edge(src, dst) {}
+};
 
 class PRVertex : public Vertex<double, PREdge> {
 public:
   using MsgT = double;
   using EdgeT = PREdge;
+
+  PRVertex(IdType id) : Vertex(id) {}
 
   void Combine(double &lhs, const double &rhs) override { lhs += rhs; }
   void Apply(const double &msg) override { pr_value_ = msg; }

@@ -19,6 +19,8 @@ class TVertex : public Vertex<double, Edge> {
  public:
   using EdgeT = Edge;
 
+  TVertex(IdType id) : Vertex(id) {}
+
   void Apply(const double& msg) override {
   }
   std::vector<std::pair<IdType, double>> Scatter(const EdgeT& edge) const override {
@@ -27,7 +29,7 @@ class TVertex : public Vertex<double, Edge> {
 };
 
 TEST_F(TestVertex, InitAndDelete) {
-  TVertex* ptr = new TVertex;
+  TVertex* ptr = new TVertex(10);
   delete ptr;
 }
 
