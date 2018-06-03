@@ -1,8 +1,17 @@
+#include <iostream>
+
 #include "data/edge.h"
 #include "data/vertex.h"
 #include "engine/execute.h"
 
+#include "gflags/gflags.h"
+#include "glog/logging.h"
+
 using namespace NGAS;
+
+DEFINE_int32(process_id, 0, "process_id");
+DEFINE_string(app_scratch_dir, "/tmp/zekucai", "scratch_dir");
+DEFINE_string(workers_info_path, "/tmp/zekucai", "worker_info_path");
 
 class PREdge : public Edge {
 public:
@@ -27,7 +36,15 @@ private:
   double pr_value_;
 };
 
-int main() {
+int main(int argc, char *argv[]) {
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
+  google::InitGoogleLogging(argv[0]);
+
+  LOG(INFO) << "Running Job PageRank";
   RunJob<PRVertex>();
+
+  google::FlushLogFiles(google::INFO);
+
+  gflags::ShutDownCommandLineFlags();
   return 0;
 }
