@@ -53,5 +53,27 @@ TEST_F(TestScatter, MultiThreadScatter) {
   }
 }
 
+TEST_F(TestScatter, MultiThreadCombineScatter) {
+  std::vector<TVertex> vertexs;
+  for(int i = 0; i < 10; i++) {
+    vertexs.push_back(TVertex(i));
+  }
+  for(int i = 9; i >= 0; i--) {
+    for(int j = 9; j >= 0; j--) {
+      vertexs.at(i).AddEdge(Edge(i, j));
+    }
+  }
+  
+  auto msg_combine = MultiThreadCombineScatter(vertexs);
+  EXPECT_EQ(100, msg_combine.size());
+  
+  for(int i = 0; i < 10; i++) {
+    for(int j = 0; j < 10; j++) {
+      EXPECT_EQ(i, msg_combine.at(i * 10 + j).first);
+      EXPECT_EQ(1, msg_combine.at(i * 10 + j).second);
+    }
+  }
+}
+
 } // namespace
 } // namespace NGAS
