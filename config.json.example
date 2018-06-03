@@ -1,0 +1,13 @@
+{
+  "worker_port" : "11234",
+  "workers" : [
+	  ["proj5", 20],
+	  ["proj6", 20],
+	  ["proj7", 20],
+	  ["proj8", 20],
+	  ["proj9", 20]
+    ],
+  "application" : "PR",
+  "app_bin_dir" : "/path/to/application/binary/directory",
+  "app_scratch_dir" : "/path/to/scratch/directory"
+}
