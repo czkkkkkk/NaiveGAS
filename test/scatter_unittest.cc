@@ -53,6 +53,7 @@ TEST_F(TestScatter, MultiThreadScatter) {
   }
 }
 
+
 TEST_F(TestScatter, MultiThreadCombineScatter) {
   std::vector<TVertex> vertexs;
   for(int i = 0; i < 10; i++) {
