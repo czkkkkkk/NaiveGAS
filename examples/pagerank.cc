@@ -1,11 +1,12 @@
 #include <iostream>
 
+#include "gflags/gflags.h"
+#include "glog/logging.h"
+
 #include "data/edge.h"
 #include "data/vertex.h"
 #include "engine/execute.h"
-
-#include "gflags/gflags.h"
-#include "glog/logging.h"
+#include "system/sys_func.h"
 
 using namespace NGAS;
 
@@ -37,8 +38,7 @@ private:
 };
 
 int main(int argc, char *argv[]) {
-  gflags::ParseCommandLineFlags(&argc, &argv, true);
-  google::InitGoogleLogging(argv[0]);
+  SystemInit(argc, argv);
 
   LOG(INFO) << "Running Job PageRank";
   RunJob<PRVertex>();
