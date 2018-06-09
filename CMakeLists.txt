@@ -55,12 +55,23 @@ set_property(TARGET data-static PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
 # Engine files
 file(GLOB engine-src-files
   engine/execute.cc
+  engine/context.cc
 )
 
 # engine-static
 add_library(engine-static STATIC ${engine-src-files})
 target_link_libraries(engine-static data-static gflags ${glog_LIBRARY} )
 set_property(TARGET engine-static PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
+
+# System file
+file(GLOB system-src-files
+  system/sys_func.cc
+)
+
+# system-static
+add_library(system-static STATIC ${system-src-files})
+target_link_libraries(system-static engine-static gflags ${glog_LIBRARY} )
+set_property(TARGET system-static PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
 
 # Test
 include(CTest)
@@ -69,5 +80,5 @@ add_subdirectory(test)
 # Applications
 # PageRank
 add_executable(PR examples/pagerank.cc)
-target_link_libraries(PR engine-static ${CMAKE_DL_LIBS})
+target_link_libraries(PR system-static)
 set_property(TARGET PR PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
