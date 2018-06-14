@@ -6,30 +6,30 @@ namespace NGAS {
 namespace {
 
 class TestVertex : public testing::Test {
- public:
+public:
   TestVertex() {}
   ~TestVertex() {}
 
- protected:
+protected:
   void SetUp() {}
   void TearDown() {}
 };
 
 class TVertex : public Vertex<double, Edge> {
- public:
+public:
   using EdgeT = Edge;
 
   TVertex(IdType id) : Vertex(id) {}
 
-  void Apply(const double& msg) override {
-  }
-  std::vector<std::pair<IdType, double>> Scatter(const EdgeT& edge) const override {
+  void Apply(const double &msg) override {}
+  std::vector<std::pair<IdType, double>>
+  Scatter(const EdgeT &edge) const override {
     return {};
   }
 };
 
 TEST_F(TestVertex, InitAndDelete) {
-  TVertex* ptr = new TVertex(10);
+  TVertex *ptr = new TVertex(10);
   delete ptr;
 }
 

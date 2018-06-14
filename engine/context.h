@@ -2,6 +2,8 @@
 
 #include <memory>
 
+#include "cluster/cluster_info.h"
+
 namespace NGAS {
 
 struct ContextData {
@@ -15,6 +17,7 @@ public:
 
 protected:
   static std::unique_ptr<ContextData> context_data_;
+  static ClusterInfo cluster_info_;
 };
 
 } // namespace NGAS

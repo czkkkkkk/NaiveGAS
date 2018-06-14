@@ -10,6 +10,9 @@ default_dirs = [
     'data',
     'engine',
     'examples',
+    'system',
+    'cluster',
+    'test',
 
 ]
 ignored_dirs = [
