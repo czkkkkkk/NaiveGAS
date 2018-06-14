@@ -42,6 +42,16 @@ include_directories(${LIBHDFS3_INCLUDE_DIR})
 # NGAS
 include_directories(${PROJECT_SOURCE_DIR})
 
+# Cluster files
+file(GLOB cluster-src-files
+  cluster/cluster_info.cc
+)
+
+# cluster-static
+add_library(cluster-static STATIC ${cluster-src-files})
+target_link_libraries(cluster-static gflags ${glog_LIBRARY})
+set_property(TARGET cluster-static PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
+
 # Data files
 file(GLOB data-src-files
   data/vertex.cc
@@ -60,7 +70,7 @@ file(GLOB engine-src-files
 
 # engine-static
 add_library(engine-static STATIC ${engine-src-files})
-target_link_libraries(engine-static data-static gflags ${glog_LIBRARY} )
+target_link_libraries(engine-static data-static cluster-static gflags ${glog_LIBRARY} )
 set_property(TARGET engine-static PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
 
 # System file

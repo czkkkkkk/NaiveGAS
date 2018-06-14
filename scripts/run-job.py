@@ -46,7 +46,7 @@ def start_worker(wid, worker_host, config):
     os.system(copy_list_to_worker_cmd)
 
     # Start Worker
-    start_worker_cmd = 'ssh %s "cd %s && bash --login -c \'%s --workers_info_path=%s --process_id=%s --app_scratch_dir=%s --log_dir=%s >%s 2>%s & echo \$! > Worker.%s.pid\'"&' % \
+    start_worker_cmd = 'ssh %s "cd %s && bash --login -c \'%s --workers_info_path=%s --worker_id=%s --app_scratch_dir=%s --log_dir=%s >%s 2>%s & echo \$! > Worker.%s.pid\'"&' % \
         (
             worker_host,
             config['app_scratch_dir'],

@@ -10,9 +10,7 @@
 
 using namespace NGAS;
 
-DEFINE_int32(process_id, 0, "process_id");
 DEFINE_string(app_scratch_dir, "/tmp/zekucai", "scratch_dir");
-DEFINE_string(workers_info_path, "/tmp/zekucai", "worker_info_path");
 
 class PREdge : public Edge {
 public:
@@ -40,7 +38,8 @@ private:
 int main(int argc, char *argv[]) {
   SystemInit(argc, argv);
 
-  LOG(INFO) << "Running Job PageRank";
+  DLOG(INFO) << "Running Job PageRank";
+
   RunJob<PRVertex>();
 
   google::FlushLogFiles(google::INFO);

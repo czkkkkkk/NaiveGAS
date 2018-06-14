@@ -1,11 +1,11 @@
 {
   "worker_port" : "11234",
   "workers" : [
-	  ["proj5", 20],
-	  ["proj6", 20],
-	  ["proj7", 20],
-	  ["proj8", 20],
-	  ["proj9", 20]
+	  ["proj5", 12315],
+	  ["proj6", 12315],
+	  ["proj7", 12315],
+	  ["proj8", 12315],
+	  ["proj9", 12315]
     ],
   "application" : "PR",
   "app_bin_dir" : "/path/to/application/binary/directory",
