@@ -39,6 +39,17 @@ message(STATUS "  (Headers)       ${LIBHDFS3_INCLUDE_DIR}")
 message(STATUS "  (Library)       ${LIBHDFS3_LIBRARY}")
 include_directories(${LIBHDFS3_INCLUDE_DIR})
 
+find_path(ZMQ_INCLUDE_DIR NAMES zmq.hpp)
+find_library(ZMQ_LIBRARY NAMES zmq)
+if(ZMQ_INCLUDE_DIR AND ZMQ_LIBRARY)
+  message(STATUS "Found ZeroMQ:")
+  message(STATUS "  (Headers)       ${ZMQ_INCLUDE_DIR}")
+  message(STATUS "  (Library)       ${ZMQ_LIBRARY}")
+elseif()
+  message(ERROR "ZeroMQ not found")
+endif()
+include_directories(${ZMQ_INCLUDE_DIR})
+
 # NGAS
 include_directories(${PROJECT_SOURCE_DIR})
 
@@ -82,6 +93,14 @@ file(GLOB system-src-files
 add_library(system-static STATIC ${system-src-files})
 target_link_libraries(system-static engine-static gflags ${glog_LIBRARY} )
 set_property(TARGET system-static PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
+
+# Network files
+FILE(GLOB network-src-files "network/*.cc")
+
+# network-static
+add_library(network-static STATIC ${network-src-files})
+target_link_libraries(network-static ${ZMQ_LIBRARY})
+set_property(TARGET network-static PROPERTY CXX_STANDARD ${CMAKE_CXX_STANDARD})
 
 # Test
 include(CTest)

@@ -1,4 +1,4 @@
-# Copyright 2017 Husky Team
+#Copyright 2017 Husky Team
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ if(GTEST_FOUND)
   add_executable(${PROJECT_NAME}_unit_tests ${UNIT_TEST_SOURCE} unittest_main.cc)
   set_property(TARGET ${PROJECT_NAME}_unit_tests PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PRIVATE_RUNTIME_DIR})
   # FIXME Below is a workaround to make the linking work
-  target_link_libraries(${PROJECT_NAME}_unit_tests ${GTEST_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${ZMQ_LIBRARY} data-static engine-static gflags ${glog_LIBRARY} ${CMAKE_DL_LIBS})
+  target_link_libraries(${PROJECT_NAME}_unit_tests ${GTEST_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${ZMQ_LIBRARY} data-static engine-static network-static gflags ${glog_LIBRARY} ${CMAKE_DL_LIBS})
   add_test(AllTestsIn${PROJECT_NAME}UnitTests ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}_unit_tests)
 else()
   message(WARNING "Google Test not found")
